@@ -10,7 +10,7 @@ int main()
 {
    int i=0,d = 0,N;
    FILE *file;
-   file = fopen("C:\\Users\\CaptainSlow!\\Desktop\\c\\hernya\\tilt.txt", "r");
+   file = fopen("C:\\Users\\CaptainSlow!\\Desktop\\c\\sort\\tilt.txt", "r");
    fscanf(file,"%i", &N);
    char name[N][100];
    char *naname[N];
