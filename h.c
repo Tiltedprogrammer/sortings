@@ -26,11 +26,10 @@ char** merge_sort(char **up, char **down, unsigned int left, unsigned int right)
 
     unsigned int middle = (unsigned int)((left + right) * 0.5);
 
-    // раздел€й и сортируй
+   
     char **l_buff = merge_sort(up, down, left, middle);
     char **r_buff = merge_sort(up, down, middle + 1, right);
 
-    // сли€ние двух отсортированных половин
     char **target;//= l_buff == up ? down : up;
     if(l_buff == up) target = down;
     else target = up;
