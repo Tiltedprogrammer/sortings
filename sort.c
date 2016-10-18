@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <strings.h>
 void swap(char**, char**);
 int comparator(char*,char*);
 void bubblesort(char**, int);
 void insertsort(char**, int);
 void quick_sort(char**, int);
 int median(char**, int, int);
+void Merge(char **, int, int,int);
+void MergeSort(char** ,int ,int );
 
 int main()
 {
@@ -52,7 +55,7 @@ int main()
 	}
     if(actualsize > 1)
     {
-        printf("Get sorting you want:\nBubble sort -> 1\nInsertion sort -> 2\nQuick sort -> 3\n  sorting number: ");
+        printf("Get sorting you want:\nBubble sort    -> 1\nInsertion sort -> 2\nQuick sort     -> 3\nMerge sort     -> 4\n  Sorting number: ");
         int j;
         scanf("%i", &j);
         switch(j)
@@ -66,6 +69,8 @@ int main()
             case 3:
                 quick_sort(strings, actualsize-1);
                 break;
+            case 4:
+                MergeSort(strings,0, actualsize-1);
             default:
                 quick_sort(strings, actualsize-1);
                 break;
@@ -144,8 +149,50 @@ void quick_sort(char **s, int right)
 	  if (r > 0)
 		 quick_sort(s, r);
 	  if (right > l)
-		 quick_sort(s + l, right-l);
+		 quick_sort(s + l, right - l);
 }
+void Merge(char **arr, int low,int mid,int high )
+{
+    int nL = mid - low + 1;
+    int nR = high - mid;
+
+    char** L = (char**)malloc(sizeof(char *)*nL);
+    char** R = (char**)malloc(sizeof(char *)*nR);
+    int i;
+    for(i = 0;i < nL;i++)
+    {
+        L[i] = (char*)malloc(sizeof(arr[low+i]));
+        strcpy(L[i],arr[low+i]);
+    }
+    for(i=0;i<nR;i++)
+    {
+        R[i] = (char*)malloc(sizeof(arr[mid+i+1]));
+        strcpy(R[i],arr[mid+i+1]);
+    }
+
+    int j = 0,k;
+    i = 0;
+    k = low;
+    while(i < nL && j < nR)
+    {
+        if(comparator(L[i],R[j]) < 0)strcpy(arr[k++],L[i++]);
+        else strcpy(arr[k++],R[j++]);
+    }
+    while(i < nL)strcpy(arr[k++],L[i++]);
+    while(j < nR)strcpy(arr[k++],R[j++]);
+
+}
+void MergeSort(char** arr,int low,int high) //Main MergeSort function
+{
+    if(low < high)
+    {
+        int mid = (low + high) / 2;
+        MergeSort(arr, low, mid);
+        MergeSort(arr, mid + 1,high);
+        Merge(arr, low, mid, high);
+    }
+}
+
 /**int median(char **p, int left, int right)
 {
 
