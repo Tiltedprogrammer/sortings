@@ -180,9 +180,7 @@ void Merge(char **arr, int low,int mid,int high )
         else strcpy(arr[k++],R[j++]);
     }
     while(i < nL)strcpy(arr[k++],L[i++]);
-    while(j < nR)strcpy(arr[k++],R[j++]);
-    free(R);
-    free(L);	
+    while(j < nR)strcpy(arr[k++],R[j++]);	
 
 }
 void MergeSort(char** arr,int low,int high) //Main MergeSort function
