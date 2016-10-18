@@ -83,6 +83,7 @@ int main()
             printf("%s\n", strings[i]);
         }
     fclose(fp);
+    free(strings);
     return 0;
 }
 void swap(char **first, char **second)
@@ -180,6 +181,8 @@ void Merge(char **arr, int low,int mid,int high )
     }
     while(i < nL)strcpy(arr[k++],L[i++]);
     while(j < nR)strcpy(arr[k++],R[j++]);
+    free(R);
+    free(L);	
 
 }
 void MergeSort(char** arr,int low,int high) //Main MergeSort function
