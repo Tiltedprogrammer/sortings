@@ -7,8 +7,9 @@ void bubblesort(char**, int);
 void insertsort(char**, int);
 void quick_sort(char**, int);
 int median(char**, int, int);
-void Merge(char **, int, int,int);
-void MergeSort(char** ,int ,int );
+void MergeSort(char**, int );
+void MergeSortRecurse(char**, char**, int , int*);
+void merge(char**, int , char**, int , char**);
 
 int main()
 {
@@ -70,13 +71,13 @@ int main()
                 quick_sort(strings, actualsize-1);
                 break;
             case 4:
-                MergeSort(strings,0, actualsize-1);
+                MergeSort(strings,actualsize);
             default:
                 quick_sort(strings, actualsize-1);
                 break;
         }
-    //printf("%i\n", median(strings, 0, actualsize - 1));
-    }
+     // MergeSort(strings, actualsize);
+}
 
     for (i = 0; i < actualsize; i++)
         {
@@ -84,6 +85,7 @@ int main()
         }
     fclose(fp);
     free(strings);
+    free(amount);
     return 0;
 }
 void swap(char **first, char **second)
@@ -152,47 +154,125 @@ void quick_sort(char **s, int right)
 	  if (right > l)
 		 quick_sort(s + l, right - l);
 }
-void Merge(char **arr, int low,int mid,int high )
+void MergeSortRecurse(char **array, char **arrayB, int n, int *pos)
 {
-    int nL = mid - low + 1;
-    int nR = high - mid;
-
-    char** L = (char**)malloc(sizeof(char *)*nL);
-    char** R = (char**)malloc(sizeof(char *)*nR);
     int i;
-    for(i = 0;i < nL;i++)
-    {
-        L[i] = (char*)malloc(sizeof(arr[low+i]));
-        strcpy(L[i],arr[low+i]);
-    }
-    for(i=0;i<nR;i++)
-    {
-        R[i] = (char*)malloc(sizeof(arr[mid+i+1]));
-        strcpy(R[i],arr[mid+i+1]);
-    }
+    for (i =  0; i < n; i++)
+        {
+            printf("%s ", array[i]);
+        }
+	printf("\n");
+	*pos = 0;
+	if(n < 2)
+	{
+		return;
+	}
 
-    int j = 0,k;
-    i = 0;
-    k = low;
-    while(i < nL && j < nR)
-    {
-        if(comparator(L[i],R[j]) < 0)strcpy(arr[k++],L[i++]);
-        else strcpy(arr[k++],R[j++]);
-    }
-    while(i < nL)strcpy(arr[k++],L[i++]);
-    while(j < nR)strcpy(arr[k++],R[j++]);	
+
+
+	int mid = n / 2;
+	int pos0; //= 0;
+	int pos1; //= 0;
+
+	MergeSortRecurse(array, arrayB, mid, &pos0);
+	MergeSortRecurse(array + mid, arrayB + mid, n - mid, &pos1);
+
+	if(pos0 != pos1)							//Prepare for merge. Both of answers must locate in same array
+	{
+		if(pos0 == 0)
+		{
+		    int i;
+			for(i = mid; i < n; i++)
+			{
+				array[i] = arrayB[i];
+			}
+		}
+		else
+		{   int i;
+			for( i = mid; i < n; i++)
+			{
+				arrayB[i] = array[i];
+			}
+		}
+	}
+
+	if(pos0 == 0)
+	{
+		merge(array, mid, array + mid, n - mid, arrayB);
+		*pos = 1;
+		for (i = 0; i < n; i++)
+		    {
+		        printf("%s ", arrayB[i]);
+		    }
+		    printf("\n");
+	}
+	else
+	{
+		merge(arrayB, mid, arrayB + mid, n - mid, array);
+		*pos = 0;
+		for (i = 0; i < n; i++)
+		    {
+		        printf("%s ", array[i]);
+		    }
+		    printf("\n");
+
+	}
+
 
 }
-void MergeSort(char** arr,int low,int high) //Main MergeSort function
+
+
+void MergeSort(char**array, int n)
 {
-    if(low < high)
-    {
-        int mid = (low + high) / 2;
-        MergeSort(arr, low, mid);
-        MergeSort(arr, mid + 1,high);
-        Merge(arr, low, mid, high);
-    }
+	if(n < 2)
+	{
+		return;
+	}
+
+	int pos = 0;								//If pos == 0, then sorted array located in array, else in arrayB
+	int i = 0;
+	char **arrayB = (char**)malloc(sizeof(char*) * n);
+
+	MergeSortRecurse(array, arrayB, n, &pos);
+
+	if(pos == 1)
+	{
+		for(i = 0; i < n; i++)
+		{
+			array[i] = arrayB[i];
+		}
+	}
+	free(arrayB);
 }
+void merge(char **L, int nL, char **R, int nR, char **array)
+{
+	int l = 0;
+	int r = 0;
+	int k = 0;
+
+	while(l < nL && r < nR)
+	{
+		if(comparator(L[l], R[r]) == -1)
+		{
+			array[k++] = L[l++];
+		}
+		else
+		{
+			array[k++] = R[r++];
+		}
+	}
+
+	while(l < nL)
+	{
+		array[k++] = L[l++];
+	}
+	while(r < nR)
+	{
+		array[k++] = R[r++];
+	}
+}
+
+
 
 /**int median(char **p, int left, int right)
 {
