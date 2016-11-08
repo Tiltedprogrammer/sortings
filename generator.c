@@ -35,8 +35,8 @@ int main()
     }
     fclose(fp);
 
-    printf("%s\n", string[0]);
-    printf("%s\n", string[1]);
+    //printf("%s\n", string[0]);
+    //printf("%s\n", string[1]);
     stop = clock();
     printf("%f", (double)(stop -start )/ 1000);
 }
