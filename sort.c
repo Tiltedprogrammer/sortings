@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <time.h>
 void swap(char**, char**);
 int comparator(char*,char*);
 void bubblesort(char**, int);
@@ -13,6 +14,8 @@ void merge(char**, int , char**, int , char**);
 
 int main()
 {
+    clock_t tic,tac;
+    tic = clock();
     FILE *fp;
     if( (fp = fopen("C:\\Users\\CaptainSlow!\\Desktop\\c\\Sortanothertry\\sort.txt", "r")) == NULL)
     {
@@ -55,7 +58,7 @@ int main()
 		fscanf(fp,"%s", strings[i]);
 	}
     if(actualsize > 1)
-    {
+    {/**
         printf("Get sorting you want:\nBubble sort    -> 1\nInsertion sort -> 2\nQuick sort     -> 3\nMerge sort     -> 4\n  Sorting number: ");
         int j;
         scanf("%i", &j);
@@ -75,8 +78,8 @@ int main()
             default:
                 quick_sort(strings, actualsize-1);
                 break;
-        }
-     // MergeSort(strings, actualsize);
+        }**/
+    MergeSort(strings, actualsize);
 }
 
     for (i = 0; i < actualsize; i++)
@@ -86,6 +89,8 @@ int main()
     fclose(fp);
     free(strings);
     free(amount);
+    tac = clock();
+    printf("%f", (double)(tac - tic)/ CLK_TCK);
     return 0;
 }
 void swap(char **first, char **second)
@@ -99,15 +104,26 @@ void swap(char **first, char **second)
 int comparator(char *first, char *second )
 {
     int i = 0;
+    int f,s;
     while((first[i] !='\0')&& (second[i]!='\0'))
 	{
-		if (first[i] > second[i]) return 1;
-		else if(first[i] < second[i])return -1;
-		i++;
-	}
+	    f = first[i];
+	    s = second[i];
+		if ((f <91) && (s >=96))  //FOR ENGLISH LETTERS
+			{
+				f+=32;
+			}
+        if ((f >= 96)&&(s < 91))
+			{
+				s+=32;
+			}
+		if (f > s) { return 1;}
+			else if(f < s) {return -1;}
+			i++;
+    }
+
 	if (first[i]=='\0')return -1;
 	return 1;
-
 }
 void bubblesort(char **p , int d)
 {
@@ -157,11 +173,11 @@ void quick_sort(char **s, int right)
 void MergeSortRecurse(char **array, char **arrayB, int n, int *pos)
 {
     int i;
-    for (i =  0; i < n; i++)
-        {
-            printf("%s ", array[i]);
-        }
-	printf("\n");
+    //for (i =  0; i < n; i++)
+      //  {
+        //    printf("%s ", array[i]);
+        //}
+	//printf("\n");
 	*pos = 0;
 	if(n < 2)
 	{
@@ -202,19 +218,19 @@ void MergeSortRecurse(char **array, char **arrayB, int n, int *pos)
 		*pos = 1;
 		for (i = 0; i < n; i++)
 		    {
-		        printf("%s ", arrayB[i]);
+	//	        printf("%s ", arrayB[i]);
 		    }
-		    printf("\n");
+		//    printf("\n");
 	}
 	else
 	{
 		merge(arrayB, mid, arrayB + mid, n - mid, array);
 		*pos = 0;
-		for (i = 0; i < n; i++)
-		    {
-		        printf("%s ", array[i]);
-		    }
-		    printf("\n");
+		//for (i = 0; i < n; i++)
+		  //  {
+		     //   printf("%s ", array[i]);
+		    //}
+		    //printf("\n");
 
 	}
 
