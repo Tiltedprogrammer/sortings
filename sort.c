@@ -43,6 +43,10 @@ int main()
         }
     }while(1);
     int actualsize = k;
+    if (actualsize < size)
+    {
+        (int*)realloc(amount, sizeof(int) * actualsize);
+    }
     int i;
     //for (i = 0; i < actualsize; i++)
     //{
@@ -50,7 +54,8 @@ int main()
     //}
     //printf("%i\n", actualsize);
     i = 0;
-    fseek(fp,3,SEEK_SET);//move the pointer to the BOF and step 3 bytes
+    rewind(fp);
+    while((ch = fgetc(fp))!= '\n');//move the pointer to the BOF and step 1 line;
     char **strings = (char**)malloc(sizeof(char*)*actualsize);
     for(i = 0; i != actualsize; i++)
 	{
@@ -193,7 +198,7 @@ void MergeSortRecurse(char **array, char **arrayB, int n, int *pos)
 	MergeSortRecurse(array, arrayB, mid, &pos0);
 	MergeSortRecurse(array + mid, arrayB + mid, n - mid, &pos1);
 
-	if(pos0 != pos1)							//Prepare for merge. Both of answers must locate in same array
+	if(pos0 != pos1)
 	{
 		if(pos0 == 0)
 		{
@@ -245,7 +250,7 @@ void MergeSort(char**array, int n)
 		return;
 	}
 
-	int pos = 0;								//If pos == 0, then sorted array located in array, else in arrayB
+	int pos = 0;
 	int i = 0;
 	char **arrayB = (char**)malloc(sizeof(char*) * n);
 
