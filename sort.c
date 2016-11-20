@@ -63,7 +63,7 @@ int main()
 		fscanf(fp,"%s", strings[i]);
 	}
     if(actualsize > 1)
-    {/**
+    {
         printf("Get sorting you want:\nBubble sort    -> 1\nInsertion sort -> 2\nQuick sort     -> 3\nMerge sort     -> 4\n  Sorting number: ");
         int j;
         scanf("%i", &j);
@@ -83,13 +83,14 @@ int main()
             default:
                 quick_sort(strings, actualsize-1);
                 break;
-        }**/
-    MergeSort(strings, actualsize);
+        }
+    //MergeSort(strings, actualsize);
 }
 
     for (i = 0; i < actualsize; i++)
         {
             printf("%s\n", strings[i]);
+	    free(strings[i]);
         }
     fclose(fp);
     free(strings);
