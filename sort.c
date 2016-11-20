@@ -90,6 +90,7 @@ int main()
     for (i = 0; i < actualsize; i++)
         {
             printf("%s\n", strings[i]);
+	    free(strings[i]);
         }
     fclose(fp);
     free(strings);
