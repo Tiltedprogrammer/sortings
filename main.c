@@ -4,36 +4,35 @@
 #include <time.h>
 #include "swap.h"
 #include "comparator.h"
-#include "bubblesort.h"
-#include "insertsort.h"
+#include "bubble_sort.h"
+#include "insert_sort.h"
 #include "quick_sort.h"
-#include "MergeSort.h"
-#include "MergeSortRecurse.h" 
-#include "merge.h"
+#include "merge_sort.h"
 
-int main()
+int main(int argc, char **argv)
 {
-    clock_t tic,tac;
-    tic = clock();
+	if(argc != 3)
+	{
+		exit(1);
+	}
+    clock_t tic = clock(),tac;
     FILE *fp;
-    if( (fp = fopen("C:\\Users\\CaptainSlow!\\Desktop\\c\\Sortanothertry\\sort.txt", "r")) == NULL)
+    if( (fp = fopen(argv[2], "r")) == NULL)
     {
         printf("Unable to open the file\n");
         exit(1);
     }
-    int size;
-    fscanf(fp, "%i", &size);
-    //printf("%i\n", size);
+    int size = atoi(argv[1]);
     int *amount = (int*)malloc(sizeof(int)*size);
     int n = 0, k = 0;
     char ch;
-    ch = fgetc(fp);//move the pointer through the file
     do
     {
      ch = fgetc(fp);
      n++;
      if(ch == '\n' || ch == EOF)
-        {  if (k >= size) break;
+        {  
+           if (k >= size) break;
            amount[k] = n;
            k++;
            n = 0;
@@ -46,49 +45,48 @@ int main()
     {
         (int*)realloc(amount, sizeof(int) * actualsize);
     }
-    int i;
-    //for (i = 0; i < actualsize; i++)
-    //{
-      //  printf("%i\n", amount[i]);
-    //}
-    //printf("%i\n", actualsize);
-    i = 0;
+    int i,j;
     rewind(fp);
-    while((ch = fgetc(fp))!= '\n');//move the pointer to the BOF and step 1 line;
     char **strings = (char**)malloc(sizeof(char*)*actualsize);
     for(i = 0; i != actualsize; i++)
 	{
-		strings[i] = (char*)malloc(sizeof(char)*(amount[i]));  // memory for each string
-		fscanf(fp,"%s", strings[i]);
+		j = 0;
+		strings[i] = (char*)malloc(sizeof(char)*(amount[i]));
+		while(((ch = fgetc(fp)) != '\n') && (ch != EOF))
+		{
+			strings[i][j] = ch;
+			j++;
+		}
+		strings[i][j] = '\0';
 	}
     if(actualsize > 1)
     {
-        printf("Get sorting you want:\nBubble sort    -> 1\nInsertion sort -> 2\nQuick sort     -> 3\nMerge sort     -> 4\n  Sorting number: ");
-        int j;
-        scanf("%i", &j);
+        printf("Get sorting:\nBubble sort    -> 1\nInsert sort    -> 2\nQuick sort     -> 3\nMerge sort     -> 4\n  Sorting number: ");
+        if(scanf("%i", &j) == EOF) exit(1);
         switch(j)
         {
             case 1:
-                bubblesort(strings, actualsize);
+                bubble_sort(strings, actualsize);
                 break;
             case 2:
-                insertsort(strings, actualsize);
+                insert_sort(strings, actualsize);
                 break;
             case 3:
                 quick_sort(strings, actualsize-1);
                 break;
             case 4:
-                MergeSort(strings,actualsize);
+                merge_sort(strings,actualsize);
             default:
                 quick_sort(strings, actualsize-1);
                 break;
         }
     //MergeSort(strings, actualsize);
-}
+    }
 
     for (i = 0; i < actualsize; i++)
         {
             printf("%s\n", strings[i]);
+            free(strings[i]);
         }
     fclose(fp);
     free(strings);

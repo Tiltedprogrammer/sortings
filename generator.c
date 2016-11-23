@@ -1,16 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-int main()
+int main(int argc, char** argv)
 {
+	if(argc !=3 ) exit(1);
     FILE *fp;
-    fp = fopen("C:\\Users\\CaptainSlow!\\Desktop\\c\\Sortanothertry\\sort.txt", "w");
+    if((fp = fopen(argv[2], "w")) == NULL) exit(1);
     clock_t start, stop;
     start = clock();
     srand(time(NULL));
-    int n;
-    printf("Input amount of strings to generate\n");
-    scanf("%i", &n);
+    int n = atoi(argv[1]);
     char **string = (char**)malloc(sizeof(char*)* n);
     int i,j,z;
     for (i = 0; i < n; i++)
@@ -24,7 +23,6 @@ int main()
         }
         string[i][j] ='\0';
     }
-    fprintf(fp,"%i\n",n);
     for(i = 0; i < n; i++)
     {
         if(i!= n-1)
@@ -38,5 +36,5 @@ int main()
     //printf("%s\n", string[0]);
     //printf("%s\n", string[1]);
     stop = clock();
-    printf("%f", (double)(stop -start )/ 1000);
+    //printf("%f", (double)(stop -start )/ 1000);
 }

@@ -1,3 +1,3 @@
 #pragma once
 
-void quick_sort(char**, int);
+void quick_sort(char** array, int index_last);

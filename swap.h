@@ -1,3 +1,3 @@
 #pragma once
 
-void swap(char**, char**);
+void swap(char** first, char** second);

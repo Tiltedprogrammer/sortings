@@ -4,20 +4,21 @@ int comparator(char *first, char *second )
 {
     int i = 0;
     int f,s;
-    while((first[i] !='\0')&& (second[i]!='\0'))
+    while((first[i] !='\0') && (second[i]!='\0'))
 	{
+		//CAPITAL letters first
 	    f = first[i];
 	    s = second[i];
-		if ((f <91) && (s >=96))  //FOR ENGLISH LETTERS
-			{
-				f+=32;
-			}
-        if ((f >= 96)&&(s < 91))
-			{
-				s+=32;
-			}
-		if (f > s) { return 1;}
-			else if(f < s) {return -1;}
+		//if ((f <91) && (s >=96))  <-------CAPITAL and common letters united  
+			//{
+		//		f+=32;
+		//	}
+        //if ((f >= 96)&&(s < 91))
+		//	{
+		//		s+=32;
+		//	}
+		if (f > s)  return 1;
+		else if(f < s) return -1;
 			i++;
     }
 

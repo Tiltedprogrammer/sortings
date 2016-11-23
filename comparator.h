@@ -1,3 +1,3 @@
 #pragma once
 
-int comparator(char*,char*);
+int comparator(char* first,char* second);
