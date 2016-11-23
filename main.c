@@ -17,12 +17,12 @@ int main(int argc, char **argv)
 	}
     clock_t tic = clock(),tac;
     FILE *fp;
-    if( (fp = fopen(argv[2], "r")) == NULL)
+    if( (fp = fopen(*(argv + 2), "r")) == NULL)
     {
         printf("Unable to open the file\n");
         exit(1);
     }
-    int size = atoi(argv[1]);
+    int size = atoi(*(argv + 1)); 		
     int *amount = (int*)malloc(sizeof(int)*size);
     int n = 0, k = 0;
     char ch;
