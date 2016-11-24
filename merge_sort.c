@@ -12,6 +12,7 @@ void merge_sort(char**array, int n)
 	int pos = 0;
 	int i = 0;
 	char **arrayB = (char**)malloc(sizeof(char*) * n);
+	if(!arrayB) exit(1);
 
 	merge_sort_recurse(array, arrayB, n, &pos);
 

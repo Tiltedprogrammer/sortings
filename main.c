@@ -24,6 +24,7 @@ int main(int argc, char **argv)
     }
     int size = atoi(*(argv + 1)); 		
     int *amount = (int*)malloc(sizeof(int)*size);
+    if(!amount) exit(1);
     int n = 0, k = 0;
     char ch;
     do
@@ -43,15 +44,18 @@ int main(int argc, char **argv)
     int actualsize = k;
     if (actualsize < size)
     {
-        (int*)realloc(amount, sizeof(int) * actualsize);
+        amount = (int*)realloc(amount, sizeof(int) * actualsize);
+        if (!amount) exit(1);
     }
     int i,j;
     rewind(fp);
     char **strings = (char**)malloc(sizeof(char*)*actualsize);
+    if (!strings) exit(1);
     for(i = 0; i != actualsize; i++)
 	{
 		j = 0;
 		strings[i] = (char*)malloc(sizeof(char)*(amount[i]));
+		if (!strings[i]) exit(1);
 		while(((ch = fgetc(fp)) != '\n') && (ch != EOF))
 		{
 			strings[i][j] = ch;
@@ -92,7 +96,7 @@ int main(int argc, char **argv)
     free(strings);
     free(amount);
     tac = clock();
-    printf("%f", (double)(tac - tic)/ CLK_TCK);
+    printf("%f\n", (double)(tac - tic)/ CLOCKS_PER_SEC);
     return 0;
 }
 
