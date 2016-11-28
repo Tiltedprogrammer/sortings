@@ -1,4 +1,7 @@
-Flat profile
+#Merge_sort & quick_sort
+
+**merge_sort**
+**Flat profile:**
 
 
 | %time | cumulative  seconds | self seconds | calls    | self  s/call | total s/call | name               |
@@ -12,10 +15,10 @@ Flat profile
 | 0.00  | 5.41                | 0.00         | 1        | 0.00         | 2.33         | merge_sort         |
 
 
-Call graph (explanation follows)
+**Call graph:**
 
 
-granularity: each sample hit covers 4 byte(s) for 0.18% of 5.41 seconds
+_granularity: each sample hit covers 4 byte(s) for 0.18% of 5.41 seconds_
 
 index | % time  |  self | children  |  called  |   name
 ----- | ------- | ----- | --------- | -------- | --------
@@ -54,44 +57,86 @@ index | % time  |  self | children  |  called  |   name
         |        |        |      |              |    
 
 
+**Qick_sort:**
+
+**Flat profile:**
+
+_Each sample counts as 0.01 seconds._
 
 
-Flat profile:
-
-Each sample counts as 0.01 seconds.
-
-
-  %   |cumulative |  self   |          | self     |total    |       
- time |  seconds  | seconds |    calls |  s/call  | s/call  |name  
+% time  |cumulative seconds |  self seconds   | calls   | self s/call   |total s/call   |  name    
 ----- | --------- | ------- | -------- | -------- | ------- | ----  
  79.18|      3.27  |   3.27 | 26616723   |  0.00  |   0.00 | comparator
- 12.83|      3.80 |    0.53 |          |          |       | main
+ 12.83|      3.80 |    0.53 |   N/A       |    N/A      |   N/A    | main
   7.14|      4.09 |    0.29 |       1  |   0.29   |  3.60 | quick_sort
   0.85|      4.13 |    0.04 | 4911136  |   0.00   |  0.00 | swap  
 
 
-Call graph (explanation follows)
+**Call graph**
 
 
-granularity: each sample hit covers 4 byte(s) for 0.24% of 4.13 seconds
+_granularity: each sample hit covers 4 byte(s) for 0.24% of 4.13 seconds_
 
-index % time    self  children    called     name
-                                                 <spontaneous>
-[1]    100.0    0.53    3.60                 main [1]
-                0.29    3.31       1/1           quick_sort [2]
------------------------------------------------
-                              890487             quick_sort [2]
-                0.29    3.31       1/1           main [1]
-[2]     87.2    0.29    3.31       1+890487  quick_sort [2]
-                3.27    0.00 26616723/26616723     comparator [3]
-                0.04    0.00 4911136/4911136     swap [4]
-                              890487             quick_sort [2]
------------------------------------------------
-                3.27    0.00 26616723/26616723     quick_sort [2]
-[3]     79.2    3.27    0.00 26616723         comparator [3]
------------------------------------------------
-                0.04    0.00 4911136/4911136     quick_sort [2]
-[4]      0.8    0.04    0.00 4911136         swap [4]
------------------------------------------------
+index |% time  |  self  |children  |  called  |   name
+----- | ------ | ------ | -------- | -------- | --------
+      |        |        |           |         |       <spontaneous>
+[1]   | 100.0   | 0.53   | 3.60        |        | main [1]
+      |         | 0.29  |  3.31     |  1/1    |       quick_sort [2]
+      |         |       |           |         |
+      |          |        |     | 890487          |   quick_sort [2]
+      |         | 0.29  |  3.31 |      1/1    |       main [1]
+[2]   |  87.2   | 0.29  |  3.31 |     1+890487 | quick_sort [2]
+      |          |3.27  |  0.00 |26616723/26616723|     comparator [3]
+      |          |0.04  |  0.00 |4911136/4911136  |   swap [4]
+      |          |      |       | 890487          |   quick_sort [2]
+      |          |      |       |                 |
+       |         |3.27    |0.00| 26616723/26616723    | quick_sort [2]
+[3]   |  79.2    |3.27    |0.00| 26616723         |comparator [3]
+      |          |       |      |                 |
+      |          |0.04    |0.00 |4911136/4911136     |quick_sort [2]
+[4]   |   0.8    |0.04    |0.00 |4911136         |swap [4]
+      |          |        |     |                |
 
 
+**Valgrind:**
+
+_merge_sort:_
+
+==3611== 
+
+==3611== HEAP SUMMARY:
+
+==3611==     in use at exit: 0 bytes in 0 blocks
+
+==3611==   total heap usage: 1,000,007 allocs, 1,000,007 frees, 54,508,250 bytes allocated
+
+==3611== 
+
+==3611== All heap blocks were freed -- no leaks are possible
+
+==3611== 
+
+==3611== For counts of detected and suppressed errors, rerun with: -v
+
+==3611== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+_qick_sort_
+
+==3667== 
+
+==3667== HEAP SUMMARY:
+
+==3667==     in use at exit: 0 bytes in 0 blocks
+
+==3667==   total heap usage: 1,000,006 allocs, 1,000,006 frees, 50,508,250 bytes allocated
+
+==3667== 
+
+==3667== All heap blocks were freed -- no leaks are possible
+
+==3667== 
+
+==3667== For counts of detected and suppressed errors, rerun with: -v
+
+==3667== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
