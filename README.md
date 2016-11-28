@@ -57,7 +57,7 @@ index | % time  |  self | children  |  called  |   name
         |        |        |      |              |    
 
 
-**Qick_sort:**
+**Quick_sort:**
 
 **Flat profile:**
 
@@ -121,7 +121,7 @@ _merge_sort:_
 ==3611== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 
 
-_qick_sort_
+_quick_sort_
 
 ==3667== 
 
