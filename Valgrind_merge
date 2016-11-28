@@ -1,0 +1,25 @@
+Merge
+
+==3611== 
+==3611== HEAP SUMMARY:
+==3611==     in use at exit: 0 bytes in 0 blocks
+==3611==   total heap usage: 1,000,007 allocs, 1,000,007 frees, 54,508,250 bytes allocated
+==3611== 
+==3611== All heap blocks were freed -- no leaks are possible
+==3611== 
+==3611== For counts of detected and suppressed errors, rerun with: -v
+==3611== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+Quick_sort
+
+==3667== 
+==3667== HEAP SUMMARY:
+==3667==     in use at exit: 0 bytes in 0 blocks
+==3667==   total heap usage: 1,000,006 allocs, 1,000,006 frees, 50,508,250 bytes allocated
+==3667== 
+==3667== All heap blocks were freed -- no leaks are possible
+==3667== 
+==3667== For counts of detected and suppressed errors, rerun with: -v
+==3667== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+

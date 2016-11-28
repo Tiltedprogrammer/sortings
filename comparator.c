@@ -9,14 +9,6 @@ int comparator(char *first, char *second )
 		//CAPITAL letters first
 	    f = first[i];
 	    s = second[i];
-		//if ((f <91) && (s >=96))  <-------CAPITAL and common letters united  
-			//{
-		//		f+=32;
-		//	}
-        //if ((f >= 96)&&(s < 91))
-		//	{
-		//		s+=32;
-		//	}
 		if (f > s)  return 1;
 		else if(f < s) return -1;
 			i++;
